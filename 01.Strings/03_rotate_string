@@ -1,0 +1,32 @@
+Example 1:
+
+Input: s = "abcde", goal = "cdeab"
+Output: true
+Example 2:
+
+Input: s = "abcde", goal = "abced"
+Output: false
+--------------------------------------------------------
+approach 1:
+bool rotateString(string s, string goal) {
+        if(s == goal) return true;
+        for(int i = 1; i < s.size(); i++){
+            string word = s.substr(i) + s.substr(0, i);
+            
+            if(goal == word){
+                return true;
+            }
+        }
+        return false;
+
+-------------------------------------------------------
+approach 2
+ bool rotateString(string s, string goal) {
+        
+        if(s.length() != goal.length()) return false;
+        s = s + s;
+        if(s.find(goal) != string::npos){
+            return true;
+        }
+        return false;
+    }
