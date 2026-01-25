@@ -1,0 +1,52 @@
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+ --------------------------------
+Algo 1
+ string longestCommonPrefix(vector<string>& strs) {
+       
+        string ans;
+        string st = strs[0];
+        
+        for(int i = st.length(); i>= 0; i--){
+            int cnt = 0;
+            for(string str: strs){
+                if(st.substr(0, i) == str.substr(0,i)){
+                    cnt++;
+                }
+                else{
+                    break;
+                }
+            }
+            if(cnt == strs.size()){
+                ans = st.substr(0, i);
+                break;
+            }
+            
+        }
+        return ans;
+    }
+----------------------------------------
+Algo - 2
+ string longestCommonPrefix(vector<string>& strs) {
+        sort(strs.begin(),strs.end());
+        string first = strs[0];
+        string last = strs[strs.size() - 1];
+        string ans;
+        int minlength = min(first.length(), last.length());
+        for(int i = 0; i < minlength; i++){
+            if(first[i] == last[i]){
+                ans += first[i];
+            }
+            else {
+                break;
+            }
+        }
+        return ans;
+    }
