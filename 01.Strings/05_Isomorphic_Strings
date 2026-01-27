@@ -1,0 +1,34 @@
+Isomorphic Strings
+
+Example 1:
+Input: s = "egg", t = "add"
+Output: true
+Explanation:
+The strings s and t can be made identical by:
+Mapping 'e' to 'a'.
+Mapping 'g' to 'd'.
+Example 2:
+Input: s = "foo", t = "bar"
+Output: false
+Explanation:
+The strings s and t can not be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+--------------------------------------------------------------------------------------
+bool isIsomorphic(string s, string t) {
+        if(s.size() != t.size()) return false;
+        unordered_map<char, char> mpp;
+        unordered_map<char, char> rpp;
+        for(int i = 0; i < s.size(); i++){
+            if(mpp.find(s[i]) == mpp.end() && rpp.find(t[i]) == rpp.end()){
+                mpp[s[i]] = t[i];
+                rpp[t[i]] = s[i];
+            }
+            else{
+                if(mpp[s[i]] != t[i] || rpp[t[i]] != s[i]){
+                    return false;
+                }
+                
+            }
+        }
+       
+        return true;
+    }
