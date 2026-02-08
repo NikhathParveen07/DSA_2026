@@ -1,0 +1,55 @@
+Given two strings a and b, return the minimum number of times you should repeat string a so that string b is a substring of it. If it is impossible for b​​​​​​ to be a substring of a after repeating it, return -1.
+Notice: string "abc" repeated 0 times is "", repeated 1 time is "abc" and repeated 2 times is "abcabc".
+Example 1:
+Input: a = "abcd", b = "cdabcdab"
+Output: 3
+Explanation: We return 3 because by repeating a three times "abcdabcdabcd", b is a substring of it.
+Example 2:
+Input: a = "a", b = "aa"
+Output: 2
+-----------------------------------------------
+class Solution {
+private:
+    int rabinRarp(string text, string pattern, int ts, int ps){
+        const int base = 2;
+        const int mod = 1e9 + 7;
+        long long hashWindow = 0, hashPattern = 0, power = 1;
+        for(int i = 0; i < ps; i++){
+            hashPattern = (hashPattern * base + (pattern[i] - 'a' + 1)) % mod;
+            hashWindow = (hashWindow * base + (text[i] - 'a' + 1)) % mod;
+            if(i < ps-1) power = (power * base) % mod;
+        }
+        for(int i = 0; i <= ts - ps; i++){
+            if(hashWindow == hashPattern){
+                if(text.substr(i, ps) == pattern){
+                    return 1;
+                }
+            }
+            if(i < ts-ps){
+                hashWindow = (hashWindow - (text[i] - 'a' + 1)* power % mod + mod)% mod;
+                hashWindow = (hashWindow * base + (text[i+ps] - 'a' + 1)) % mod;
+            }
+        }
+        return -1;
+    }
+public:
+    int repeatedStringMatch(string a, string b) {
+        string t = a;
+        int cnt = 1;
+        int bs = b.size();
+        int as = t.size();
+        int ts = t.size();
+        
+        while(cnt <= (bs/ts) + 2){
+            if(as >= bs){
+                int r = rabinRarp(a, b, as, bs);
+                if(r == 1) return cnt;
+            }
+            a += t;
+            as += t.size();
+            cnt++;
+        }
+
+        return -1;
+    }
+};
