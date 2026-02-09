@@ -1,0 +1,56 @@
+Given two strings, one is a text string txt and the other is a pattern string pat. The task is to return the indexes of all the occurrences of the pattern string in the text string. 
+Use 0-based indexing while returning the indices.
+Note: Return an empty list in case of no occurrences of pattern.
+Examples:
+Input: txt = "geeksforgeeks", pat = "geek"
+Output: [0, 8]
+Explanation: The pattern "geek" occurs at: Index 0 (characters 0–3) and Index 8 (characters 8–11)
+Input: txt = "abesdu", pat = "edu"
+Output: []
+Explanation: There's no substring "edu" present in txt.
+
+-------------------------------------------------------------------------------------
+class Solution {
+    
+  public:
+    vector<int> zAlgo(string s){
+        int n = s.size();
+        vector<int> z(n, 0);
+        int l = 0, r = 0;
+        for(int i = 1; i < n; i++){
+            if(i > r){
+                l = r = i;
+                while(r < n && s[r] == s[r-l]) r++;
+                z[i] = r - l;
+                r--;
+            }
+            else{
+                int k = i - l;
+                if( z[k] < r-i+1){
+                    z[i] = z[k];
+                }
+                else{
+                    l = i;
+                    while(r < n && s[r] == s[r-l]) r++;
+                    z[i] = r- l;
+                    r--;
+                }
+            }
+        }
+        return z;
+    }
+  public:
+    vector<int> search(string &txt, string &pat) {
+        // code here
+        vector<int> ans;
+        int ps = pat.size();
+        string s = pat + "$" + txt;
+        vector<int> z = zAlgo(s);
+        for(int i = 0; i < z.size(); i++){
+            if(z[i] == ps){
+                ans.push_back(i - ps - 1);
+            }
+        }
+        return ans;
+    }
+};
