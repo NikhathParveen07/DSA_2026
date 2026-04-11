@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+bool isEven(int n){
+    return !(n&1);
+}
+int main()
+{
+    int num;
+    cin >> num;
+    cout << boolalpha << isEven(num);
+    
+    
+    return 0;
+}
+
+
+Note:
+1. The Default Behavior
+
+By default, `std::cout` treats booleans as integers:
+
+• true -> 1
+
+• false-> 0
+ex: 
+bool myBool = true;
+cout << myBool;
+output: 1
+
+2. Using `std::boolalpha`
+
+To print "true" or "false" as text, use the `boolalpha` manipulator from the `<iostream>` library.
+
+• Syntax: `cout << boolalpha << myBool;`
+
+• Note: This is "sticky"—it affects all subsequent boolean outputs in the stream until changed back using `noboolalpha`.
+
+3. Custom Formatting (Capitalization)
+
+Standard C++ does not have a built-in manipulator for "True" or "TRUE". To achieve this, use a Ternary Operator:
+
+• Capitalized: `cout << (ans ? "True" : "False");`
+
+• Upper Case: `cout << (ans ? "TRUE" : "FALSE");`
