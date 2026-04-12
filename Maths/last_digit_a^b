@@ -1,0 +1,26 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+int last_digt(string a, string b){
+    int len_a = size(a);
+    int len_b = size(b);
+    int base = a[len_a - 1] - '0';
+    int expo = 0;
+    for(char c: b){
+        int digit = c - '0';
+        expo = (expo * 10 + digit) % 4;
+    }
+    if(expo == 0) expo = 4;
+    int ans = pow(base, expo);
+    return ans%10;
+}
+int main() {
+    string a, b;
+    cout << "Enter a: ";
+    cin >> a;
+    cout << "Enter b: ";
+    cin >> b;
+    
+    cout << last_digt(a,b);
+    return 0;
+}
