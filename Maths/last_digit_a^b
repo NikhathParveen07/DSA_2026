@@ -4,6 +4,9 @@ using namespace std;
 int last_digt(string a, string b){
     int len_a = size(a);
     int len_b = size(b);
+    if(len_a == 1 && a == "0") return 0;
+    if(len_b == 1 && b == "0") return 1;
+    if (len_b == 1 && b[0] == '0') return 1;
     int base = a[len_a - 1] - '0';
     int expo = 0;
     for(char c: b){
