@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int twosum(vector<int> arr, int target){
+    int left = 0, right = arr.size()-1, ans = 0;
+    while(left < right){
+        int s = arr[left] + arr[right];
+        if(s < target) left++;
+        else if(s > target) right--;
+        else{
+            int ele1 = arr[left], ele2 = arr[right];
+            int l = 0, r = 0;
+            while(left <= right && arr[left] == ele1){
+                left++;
+                l++;
+            }
+            while(left <= right && arr[right] == ele2){
+                right--;
+                r++;
+            }
+            if(ele1 == ele2) {
+                ans += (l*(l-1))/2;
+            }
+            else{
+                ans += (l*r);
+            }
+            
+        }
+    }
+    return ans;
+}
+
+int main() {
+    vector<int> arr;
+	string input;
+	getline(cin, input);
+	stringstream ss(input);
+	char ch;
+	ss >> ch;
+	int num;
+	while(ss >> num){
+	    arr.push_back(num);
+	    ss >> ch;
+	}
+	int target;
+	cin >> target;
+	cout << twosum(arr, target);
+}
